@@ -1,4 +1,4 @@
-# Ansible playbooks
+# Terraform configuration files
 
 Repository with different HCL config files.
 
