@@ -1,13 +1,13 @@
-resource "docker_image" "nodered-image" {
-  name = "nodered/node-red:latest"
-
+# Resource block to create the docker image
+resource "docker_image" "docker-image" {
+  name = var.docker-image
 }
 
-resource "docker_container" "nodered-container" {
-  name  = "nodered"
-  image = docker_image.nodered-image.image_id
+resource "docker_container" "docker-container" {
+  name     = var.container-name
+  image    = docker_image.docker-image.name
   ports {
-    internal = 1880
-    external = 1880
+    internal = var.docker-ports["host"]
+    external = var.docker-ports["container"]
   }
 }
