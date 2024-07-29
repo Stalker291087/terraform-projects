@@ -13,7 +13,6 @@ module "docker-image" {
 # Creating docker container
 module "docker-container" {
   source                   = "./container-module"
-  depends_on               = [null_resource.docker-vol]
   count                    = local.container_count
   container_name_in        = join("-", [var.container-name, random_string.random-string[count.index].result, terraform.workspace])
   container_image_in       = module.docker-image.docker-image-out
@@ -22,14 +21,3 @@ module "docker-container" {
   docker_container_path_in = "/data"
   docker_host_path_in      = "${var.host-data-path}${var.data-directory-name}/"
 }
-
-resource "null_resource" "docker-vol" {
-  provisioner "local-exec" {
-    command = "mkdir ${var.host-data-path}${var.data-directory-name}/ || true && sudo chown 1000:1000  ${var.host-data-path}${var.data-directory-name}/"
-  }
-}
-# resource block to be use if a container import is neccesary
-# resource "docker_container" "docker-container-import" {
-#   name  = "node-red-l52o"
-#   image = docker_image.docker-image.name
-# }

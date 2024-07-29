@@ -8,6 +8,10 @@ resource "docker_container" "docker-container" {
   }
   volumes {
     container_path = var.docker_container_path_in
-    host_path      = var.docker_host_path_in
+    volume_name = docker_volume.docker-container-volume.name
   }
+}
+
+resource "docker_volume" "docker-container-volume" {
+  name = "${var.container_name_in}-volume"
 }
