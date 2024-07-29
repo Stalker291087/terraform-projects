@@ -15,7 +15,7 @@ module "docker-container" {
   source                   = "./container-module"
   depends_on               = [null_resource.docker-vol]
   count                    = local.container_count
-  container_name_in        = join("-", [var.container-name, random_string.random-string[count.index].result])
+  container_name_in        = join("-", [var.container-name, random_string.random-string[count.index].result, terraform.workspace])
   container_image_in       = module.docker-image.docker-image-out
   docker_internal_in       = var.internal-ports
   docker_external_in       = var.external-ports[terraform.workspace][count.index]
@@ -25,7 +25,7 @@ module "docker-container" {
 
 resource "null_resource" "docker-vol" {
   provisioner "local-exec" {
-    command = "mkdir -p ${var.host-data-path}${var.data-directory-name}/ || true && sudo chown 1000:1000  ${var.host-data-path}${var.data-directory-name}/"
+    command = "mkdir ${var.host-data-path}${var.data-directory-name}/ || true && sudo chown 1000:1000  ${var.host-data-path}${var.data-directory-name}/"
   }
 }
 # resource block to be use if a container import is neccesary
