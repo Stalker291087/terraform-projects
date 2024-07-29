@@ -37,12 +37,7 @@ variable "internal-ports" {
   }
 }
 
-variable "host-data-path" {
+variable "container-data-path" {
   type        = string
-  description = "Local path to store persistent data"
-}
-
-variable "data-directory-name" {
-  type        = string
-  description = "Directory name to host docker container files"
+  description = "Docker path to store data in the container"
 }

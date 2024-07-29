@@ -18,6 +18,5 @@ module "docker-container" {
   container_image_in       = module.docker-image.docker-image-out
   docker_internal_in       = var.internal-ports
   docker_external_in       = var.external-ports[terraform.workspace][count.index]
-  docker_container_path_in = "/data"
-  docker_host_path_in      = "${var.host-data-path}${var.data-directory-name}/"
+  docker_container_path_in = var.container-data-path
 }
