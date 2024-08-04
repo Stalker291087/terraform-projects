@@ -1,4 +1,3 @@
-output "container-details" {
-  description = "Docker containers and external ports."
-  value       = flatten([for containers in module.docker-container[*].container-details : containers])
+output "application-access" {
+  value = flatten([for containers in module.docker-container[*]: containers])
 }

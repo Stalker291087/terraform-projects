@@ -17,3 +17,7 @@ variable "docker_external_in" {
 variable "docker_container_path_in" {
  description = "Path of the docker container for persistent storage" 
 }
+
+variable "count_in" {
+  description = "Number of containers to be deployed"
+}
